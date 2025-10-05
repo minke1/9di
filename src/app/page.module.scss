@@ -1,0 +1,36 @@
+.container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    min-height: 100vh;
+    background-color: #f9f9f9;
+    border-left: 1px solid #E5E7EB;
+    border-right: 1px solid #E5E7EB;
+
+    &__onBoarding {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-width: 300px;
+        padding: 20px 40px 40px 40px;
+        margin-top: 0px;
+        gap: 20px;
+
+        &__title {
+            font-size: 16px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        &__steps {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            width: 100%;
+            gap: 8px;
+            font-size: 18px;
+            color:#454545;
+        }
+    }
+}
