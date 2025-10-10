@@ -25,11 +25,12 @@ export default function MarkdownDialog() {
 
     const [title, setTitle] = useState<string>('');
     const [content, setContent] = useState<string | undefined>('Hello World');
+    const [open, setOpen] = useState<boolean>(false);
 
 
 
     const handleSave = async () => {
-
+        
         if (!title || !content) {
             toast.error("Please enter a title and content!");
             return;
@@ -51,11 +52,12 @@ export default function MarkdownDialog() {
 
             if (status === 201) {
                 toast.success('Successfully saved!');
+                setOpen(false);
             }
         }
     };
 
-    return  <Dialog>
+    return  <Dialog open={open} onOpenChange={setOpen}>
                 <DialogTrigger asChild>
                     <span className="font-normal text-gray-400 hover:text-gray-500 cursor-pointer">Markdown</span>
                 </DialogTrigger>
@@ -87,7 +89,7 @@ export default function MarkdownDialog() {
                     <DialogFooter>
                         <div className={styles.dialog__buttonBox}>
                             <DialogClose asChild>
-                                <Button variant="ghost" className="font-normal text-gray-400 hover:text-gray-500">Cancel</Button>
+                                <Button variant="ghost" className="font-normal text-gray-400 hover:text-gray-500" onClick={() => setOpen(false)}>Cancel</Button>
                             </DialogClose>
                             <DialogClose asChild>
                             <Button type="submit" onClick={handleSave} className="bg-blue-500 text-white hover:bg-blue-600">Save</Button>
