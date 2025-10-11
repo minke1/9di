@@ -1,36 +1,42 @@
 .container {
     display: flex;
     justify-content: center;
-    width: 100%;
-    min-height: 100vh;
-    background-color: #f9f9f9;
-    border-left: 1px solid #E5E7EB;
+    align-items: center;
+
+    width: 920px;
+    height: 100vh;
+
+    background-color: #F9FAFB;
     border-right: 1px solid #E5E7EB;
 
-    &__onBoarding {
+    &_onBoarding {
+
         display: flex;
         flex-direction: column;
+        justify-content: center;
         align-items: center;
-        min-width: 300px;
-        padding: 20px 40px 40px 40px;
-        margin-top: 0px;
+        
+        width: 200px;
         gap: 20px;
 
-        &__title {
-            font-size: 16px;
-            font-weight: 600;
-            white-space: nowrap;
+        &_title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #111827;
         }
 
-        &__steps {
+        &_steps {
             display: flex;
             flex-direction: column;
+            align-items: center;
             justify-content: center;
-            align-items: flex-start;
-            width: 100%;
             gap: 8px;
             font-size: 18px;
-            color:#454545;
+            font-weight: 400;
+            color: #111827;
         }
+        
     }
+    
+    
 }

@@ -1,12 +1,20 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-import SideNavigation from "@/components/common/navigation/SideNavigation";
+import { Geist, Geist_Mono, Roboto } from "next/font/google";
+import "@/styles/globals.css";
+import SideNavigation from "@/components/ui/common/navigation/SideNavigation";
+import { Toaster } from "@/components/ui/sonner"
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+// const geistSans = Geist({
+//   variable: "--font-geist-sans",
+//   subsets: ["latin"],
+// });
+
+const roboto = Roboto({
+  variable: "--font-roboto",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800", "900"],
 });
+
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
@@ -25,9 +33,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased flex bg-white text-slate-950`}>
+      <body className={`${roboto.variable} ${geistMono.variable} antialiased`}>
         <SideNavigation />
         {children}
+        <Toaster />
       </body>
     </html>
   );
