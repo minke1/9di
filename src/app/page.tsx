@@ -18,7 +18,7 @@ export default function Home() {
                 <Button variant="outline" 
                         className="w-full bg-transparent
                                      text-orange-500 hover:bg-orange-50 border-orange-500
-                                     hover:border-orange-50" onClick={() => {router.push("/create")}}>Add New Page</Button>
+                                     hover:border-orange-50" onClick={() => {router.push("/create")}}>Add New Page12</Button>
               </div>
          </div>;
 }
