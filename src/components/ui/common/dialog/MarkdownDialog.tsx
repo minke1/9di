@@ -80,7 +80,7 @@ export default function MarkdownDialog() {
                         <div className={styles.dialog__markdown}>
                             <MarkdownEditor
                                 value={content}
-                                height="500px"
+                                height="300px"
                                 visible={true}
                                 onChange={(e) => setContent(e)}
                             />
