@@ -1,0 +1,5 @@
+@import "tailwindcss";
+
+.flex-layout {
+  @apply flex;
+}
