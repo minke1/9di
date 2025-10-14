@@ -92,7 +92,7 @@ export default function MarkdownDialog() {
                                 <Button variant="ghost" className="font-normal text-gray-400 hover:text-gray-500" onClick={() => setOpen(false)}>Cancel</Button>
                             </DialogClose>
                             <DialogClose asChild>
-                            <Button type="submit" onClick={handleSave} className="bg-blue-500 text-white hover:bg-blue-600">Save</Button>
+                                <Button type="submit" onClick={handleSave} className="bg-blue-500 text-white hover:bg-blue-600">Save</Button>
                             </DialogClose>                                
                         </div>
                     </DialogFooter>

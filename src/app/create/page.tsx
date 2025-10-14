@@ -19,7 +19,6 @@ export default function Create() {
                                 <LabelCalendar label="from"/>
                                 <LabelCalendar label="to"/>
                             </div>
-                            
                             <Button variant="outline" className="w-[15%] text-black hover:bg-orange-50 border-orange-500
                                             hover:border-orange-50">Add New Page</Button>
                         </div>
