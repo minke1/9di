@@ -40,5 +40,11 @@
             font-weight: 500;
             color: #3B3B3B;
         }
+
+        &__list {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
     }
 }

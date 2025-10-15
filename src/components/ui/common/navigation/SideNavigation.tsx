@@ -9,21 +9,23 @@ import { supabase } from "@/utils/supabase";
 import { toast } from "sonner";
 import { useEffect } from "react";
 import { useState } from "react";
-import { todo } from "@uiw/react-markdown-editor";
+// import { todo } from "@uiw/react-markdown-editor";
+import { Todo } from "@/types/todos";
+
 
 export default function SideNavigation() {
 
     const router = useRouter();
-    const [todos, setTodos] = useState<any>([]);
+    const [todos, setTodos] = useState<Todo[]>([]);
 
     const onCreate = async () => {
 
         const {error, status} = await supabase.from('todos').insert([
-            { 
+            {
                 title: '',
                 start_date: '',
                 end_date: '',
-                contents:[]
+                content: ''
             },
           ])
 
@@ -39,7 +41,8 @@ export default function SideNavigation() {
     }
 
     const getTodos = async() => {
-        let {data:todos, error} = await supabase.from('todos').select('*');
+
+        const {data:todos, error} = await supabase.from('todos').select('*');
 
         if (error) {
             toast.error(error.message);
@@ -68,7 +71,8 @@ export default function SideNavigation() {
             </div>
             <div className={styles.container__todos}>
                 <span className={styles.container__todos__label}>My Todos</span>
-                {todos && todos.map((todo:any) => {
+                <div className={styles.container__todos__list}>
+                {todos && todos.map((todo:Todo) => {
                     return (
                         <div className="flex items-center gap-2 bg-[#F9FAFB] p-2 rounded-md cursor-pointer" key={todo.id}>
                             <Dot className="mr-1 text-green-400"></Dot>
@@ -76,6 +80,7 @@ export default function SideNavigation() {
                         </div>
                     )
                 })}
+                </div>
             </div>
         </div>
     );
