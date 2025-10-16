@@ -18,7 +18,7 @@ export default function Home() {
           title: '',
           start_date: new Date(),
           end_date: new Date(),
-          content:''
+          content:[]
       },
     ]).select();
 
