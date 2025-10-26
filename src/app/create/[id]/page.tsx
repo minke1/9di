@@ -7,9 +7,10 @@ import { Progress } from "@/components/ui/progress"
 import BasicBoard from "@/components/ui/common/board/basicBoard";
 import {Todo, BoardContent} from "@/types/todos";
 import { useRouter, usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { supabase } from "@/utils/supabase";
+import { nanoid } from "nanoid";
 
 export default function Create() {
 
@@ -20,12 +21,51 @@ export default function Create() {
     const [startDate, setStartDate] = useState<string | Date>();
     const [endDate, setEndDate] = useState<string | Date>();
 
+
+    const insertRowData = async (content: BoardContent[]) => {
+
+        const todoId = parseInt(pathname.split("/")[2]);
+
+        if (boards?.content !== undefined){
+            const {data, error, status} = await supabase.from("todos")
+                                        .update({content: content})
+                                        .eq("id", todoId)
+            if(error){
+                toast.error("Failed to insert data");
+            }
+
+            if(status === 200 || status === 204){
+                toast.success("Data inserted successfully");
+                getData();
+            }
+        }else {
+            const {data, error, status} = await supabase.from("todos")
+                                        .insert(
+                                            {
+                                             content: content
+                                            },
+                                        ).select();
+            if(error){
+                toast.error("Failed to insert data");
+            }
+
+            if(status === 201){
+                toast.success("Data inserted successfully");
+                getData();
+            }
+        }
+    
+       
+    }
+
+
+
     const createBoard = async() => {
 
         let newContents: BoardContent[] = [];
-        
+
         const BoardContent = {
-            boardId: "",
+            boardId: nanoid(),
             isConmpleted: false,
             title: "",
             startDate: "",
@@ -35,11 +75,48 @@ export default function Create() {
 
         if(boards && boards.content?.length && boards.content.length > 0) {
             newContents = [...boards.content, BoardContent];
-           
+            insertRowData(newContents);
+
         }else if (boards && boards.content?.length === 0) {
             newContents.push(BoardContent);
+            insertRowData(newContents);
         }
     }
+
+
+    const getData = async () => {
+
+        const todoId = parseInt(pathname.split("/")[2]);
+
+        const {data, error, status} = await supabase.from("todos")
+                                        .select("*")
+                                        .eq("id", todoId)
+
+        if(error){
+            toast.error("Failed to get data");
+            return;
+        }
+
+        if(status === 200){
+            if(data && data.length > 0){
+                setBoards(data[0]);
+            } else {
+                // 데이터가 없으면 빈 보드로 초기화
+                setBoards({
+                    id: todoId,
+                    title: '',
+                    content: [],
+                    start_date: new Date().toISOString(),
+                    end_date: new Date().toISOString(),
+                    created_at: new Date().toISOString()
+                } as Todo);
+            }
+        }
+    }
+
+    useEffect(() => {
+        getData();
+    }, []);
 
     return <div className={styles.container}>
                 <header className={styles.container__header}>
@@ -60,12 +137,20 @@ export default function Create() {
                     </div>
                 </header>
                 <main className={styles.container__body}>
-                    {/* <div className={styles.container__body__infoBox}>
-                        <span className={styles.title}>There is no page</span>
-                        <span className={styles.subTitle}>Click "Add New Page" to create a new page</span>
-                        <button className={styles.button}>Click</button>
-                    </div> */}
-                    <BasicBoard/>
+                    {
+                    boards?.content?.length === 0 ? (
+                        <div className={styles.container__body__infoBox}>
+                            <span className={styles.title}>There is no page</span>
+                            <span className={styles.subTitle}>Click Add New Page to create a new page</span>
+                            <button className={styles.button}>Click</button>
+                        </div>
+                    ) : (
+                        <div>
+                            {boards?.content?.map((item:BoardContent) => (
+                                <BasicBoard key={item.boardId} />
+                            ))}
+                        </div>
+                    )}
                 </main>
             </div>;
 }
