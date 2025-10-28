@@ -145,7 +145,7 @@ export default function Create() {
                             <button className={styles.button}>Click</button>
                         </div>
                     ) : (
-                        <div>
+                        <div className="flex flex-col gap-16 items-center justify-start w-full h-full">
                             {boards?.content?.map((item:BoardContent) => (
                                 <BasicBoard key={item.boardId} />
                             ))}
